@@ -7,5 +7,6 @@
         public string? SedeString { get; set; }
         public string? DependenciaString { get; set; }
         public string? EstadoAreaString { get; set; }
+        public DateTime? FechaRegistro { get; set; }
     }
 }

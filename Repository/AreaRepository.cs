@@ -1,4 +1,5 @@
-﻿using SICPMonolithic.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SICPMonolithic.Data;
 using SICPMonolithic.Interfaces;
 using SICPMonolithic.Models;
 
@@ -15,34 +16,32 @@ namespace SICPMonolithic.Repository
         }
         public IEnumerable<Area> GetAllAreas()
         {
-            return _context.Areas.ToList();
+            //return _context.Areas.ToList();
+            var lista = _context.Areas
+          .Include(a => a.Sede)
+          .Include(a => a.Dependencia)
+          .Include(a => a.EstadoArea)
+          .ToList();
+            return lista;
+
         }
 
         public Area GetAreaById(int areaId)
         {
-            return _context.Areas.FirstOrDefault(p => p.Id == areaId);
-
+            //return _context.Areas.FirstOrDefault(p => p.Id == areaId);
+            return _context.Areas
+                .Include(p => p.Dependencia)
+                     .Include(a => a.Sede)
+                     .Include(a => a.EstadoArea)
+                .FirstOrDefault(p => p.Id == areaId);
         }
 
-        public void CreateArea(int sedeId, int dependenciaId, int estadoAreaId, Area area)
+        public void CreateArea(Area area)
         {
             if (area == null)
             {
                 throw new ArgumentNullException(nameof(area));
-            }
-            var sedeString = _context.Enumerados.Where(p => p.Id == sedeId)
-                .Select(x => x.Valor).Single();
-            var dependenciaString = _context.Enumerados.Where(p => p.Id == dependenciaId)
-                .Select(x => x.Valor).Single();
-            var estadoAreaString = _context.Enumerados.Where(p => p.Id == estadoAreaId)
-              .Select(x => x.Valor).Single();
-            area.SedeId = sedeId;
-            area.DependenciaId = dependenciaId;
-            area.EstadoAreaId = estadoAreaId;
-            area.SedeString = sedeString;
-            area.DependenciaString = dependenciaString;
-            area.EstadoAreaString = estadoAreaString;
-
+            }            
             _context.Areas.Add(area);
         }
         public bool AreaExists(int areaId)
@@ -56,5 +55,9 @@ namespace SICPMonolithic.Repository
             return _context.SaveChanges() >= 0;
         }
 
+        public void UpdateArea(Area area)
+        {
+            _context.Update(area);
+        }
     }
 }

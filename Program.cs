@@ -10,6 +10,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseInMemoryDatabase("InMem"));
 builder.Services.AddScoped<IEnumeradoRepository, EnumeradoRepository>();
 builder.Services.AddScoped<IProcedimientoRepository, ProcedimientoRepository>();
+builder.Services.AddScoped<IAreaRepository, AreaRepository>();
 builder.Services.AddScoped<IBienPatrimonialRepository, BienPatrimonialRepository>();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

@@ -12,13 +12,18 @@ namespace SICPMonolithic.Profiles
             CreateMap<BienPatrimonial, BienPatrimonialReadDto > ();
             CreateMap<BienPatrimonialCreateDto, BienPatrimonial>();           
             CreateMap<Procedimiento, ProcedimientoReadDto>()
-           .ForMember(d => d.ProcedimientoTipoString, 
-           opt => opt.MapFrom(fuente => fuente.ProcedimientoTipo.Valor))
-           .ForMember(d => d.CausalString,
-           opt => opt.MapFrom(fuente => fuente.Causal.Valor))
-           ;
+                .ForMember(d => d.ProcedimientoTipoString, 
+                    opt => opt.MapFrom(fuente => fuente.ProcedimientoTipo.Valor))
+                .ForMember(d => d.CausalString,
+                    opt => opt.MapFrom(fuente => fuente.Causal.Valor));
             CreateMap<ProcedimientoCreateDto, Procedimiento>();
-            CreateMap<Area, AreaReadDto>();
+            CreateMap<Area, AreaReadDto>()
+                .ForMember(d => d.SedeString,
+                    opt => opt.MapFrom(fuente => fuente.Sede.Valor))
+                .ForMember(d => d.DependenciaString,
+                    opt => opt.MapFrom(fuente => fuente.Dependencia.Valor))
+                .ForMember(d => d.EstadoAreaString,
+                    opt => opt.MapFrom(fuente => fuente.EstadoArea.Valor));                
             CreateMap<AreaCreateDto, Area>();
             CreateMap<Inventario, InventarioReadDto>();
             CreateMap<InventarioCreateDto, Inventario>();

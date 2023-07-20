@@ -33,11 +33,11 @@ namespace SICPMonolithic.Repository
 
         public IEnumerable<Procedimiento> GetAllProcedimientos()
         {
-            var sacadaproc = _context.Procedimientos
+            var lista = _context.Procedimientos
             .Include(a => a.ProcedimientoTipo)
             .Include(a => a.Causal)
             .ToList();
-            return sacadaproc;
+            return lista;
         }
         public IEnumerable<Procedimiento> GetAltas(int procTipoId)
         {

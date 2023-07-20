@@ -5,9 +5,10 @@ namespace SICPMonolithic.Interfaces
     public interface IAreaRepository
     {
         IEnumerable<Area> GetAllAreas();
-        void CreateArea(int sedeId, int dependenciaId, int estadoAreaId, Area area);
+        void CreateArea(Area area);
         bool AreaExists(int areaId);
         Area GetAreaById(int areaId);
+        public void UpdateArea(Area area);
         bool Save();
 
     }
