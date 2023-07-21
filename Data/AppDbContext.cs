@@ -21,13 +21,20 @@ namespace SICPMonolithic.Data
             modelBuilder
                 .Entity<Enumerado>()
                 .HasMany(p => p.BienesPatrimoniales)
-                .WithOne(p => p.Enumerado!)
-                .HasForeignKey(p => p.EnumeradoId);
+                .WithOne(p => p.Categoria!)
+                .HasForeignKey(p => p.CategoriaId);
             modelBuilder
                 .Entity<BienPatrimonial>()
-                .HasOne(p => p.Enumerado)
+                .HasOne(p => p.Categoria)
                 .WithMany(p => p.BienesPatrimoniales)
-                .HasForeignKey(p => p.EnumeradoId);           
+                .HasForeignKey(p => p.CategoriaId);
+            modelBuilder.Entity<BienPatrimonial>()
+               .HasOne(r => r.Procedimiento)
+               .WithMany(r => r.Bienes)
+               .HasForeignKey(r => r.ProcedimientoId)
+               .OnDelete(DeleteBehavior.ClientSetNull);
+
+
             //Procedimiento
 
             modelBuilder.Entity<Procedimiento>()

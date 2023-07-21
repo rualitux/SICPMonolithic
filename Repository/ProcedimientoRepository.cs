@@ -23,7 +23,6 @@ namespace SICPMonolithic.Repository
             {
                 throw new ArgumentNullException(nameof(procedimiento));
             }
-            //_context.Procedimientos.Add(procedimiento);
             _context.Procedimientos.Add(procedimiento);            
         }
         public void UpdateProcedimiento(Procedimiento procedimiento)

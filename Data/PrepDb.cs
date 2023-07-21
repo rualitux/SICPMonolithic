@@ -20,9 +20,9 @@ namespace SICPMonolithic.Data
             {
                 Console.WriteLine("Seedeando data... checa el API sobrino");
                 context.BienesPatrimoniales.AddRange(
-                        new BienPatrimonial() { Denominacion = "Perro", EnumeradoId = 1, Categoria = "Animales", Color = "Negro" },
-                        new BienPatrimonial() { Denominacion = "Perro2", EnumeradoId = 1, Categoria = "Animales", Color = "Dorado" },
-                        new BienPatrimonial() { Denominacion = "Botecito 3", EnumeradoId = 2, Categoria = "Bote", Marca = "Wanxin" }
+                        new BienPatrimonial() { Denominacion = "Perro", CategoriaId = 1, Color = "Negro", ProcedimientoId = 1 },
+                        new BienPatrimonial() { Denominacion = "Perro2", CategoriaId = 1, Color = "Dorado", ProcedimientoId = 1 },
+                        new BienPatrimonial() { Denominacion = "Botecito 3", CategoriaId = 2, Marca = "Wanxin", ProcedimientoId = 2 }
                             );
                 context.Enumerados.AddRange(
                         //1
@@ -49,7 +49,10 @@ namespace SICPMonolithic.Data
                         new Enumerado() { Valor = "EstadoGeneral", Padre = 19 },
                         new Enumerado() { Valor = "Anexo", Padre = 19 },
                         new Enumerado() { Valor = "Estado Condicion", Padre = 19 },
-                        new Enumerado() { Valor = "Enumerado" }
+                        new Enumerado() { Valor = "Enumerado" },
+                        new Enumerado() { Valor = "Atalaya", Padre =14},
+                        new Enumerado() { Valor = "GOREU", Padre = 15 }
+
 
 
 

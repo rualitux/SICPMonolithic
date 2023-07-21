@@ -1,4 +1,7 @@
-﻿using SICPMonolithic.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using SICPMonolithic.Data;
+using SICPMonolithic.Dtos;
 using SICPMonolithic.Interfaces;
 using SICPMonolithic.Models;
 
@@ -13,14 +16,14 @@ namespace SICPMonolithic.Repository
             _context = context;
         }
 
-      
+
 
         public bool BienExists(int bienPatrimonialId)
         {
             return _context.BienesPatrimoniales.Any(p => p.Id == bienPatrimonialId);
         }
 
-       
+
 
         //public void CreateBien(int enumeradoId, BienPatrimonial bien)
         //{
@@ -35,20 +38,49 @@ namespace SICPMonolithic.Repository
 
         //    _context.BienesPatrimoniales.Add(bien);
         //}
-        public void CreateBien(int enumeradoId, BienPatrimonial bien)
+        public void CreateBien(BienPatrimonial bien)
         {
             if (bien == null)
             {
                 throw new ArgumentNullException(nameof(bien));
             }
-            var categoria = _context.Enumerados.Where(p => p.Id == enumeradoId)
-                .Select(x => x.Valor).Single();           
-            bien.Categoria = categoria;           
-            bien.EnumeradoId = enumeradoId;          
+            //var categoria = _context.Enumerados.Where(p => p.Id == enumeradoId)
+            //    .Select(x => x.Valor).Single();           
+            //bien.Categoria = categoria;           
+            //bien.EnumeradoId = enumeradoId;          
             _context.BienesPatrimoniales.Add(bien);
         }
 
-       
+        public IDbContextTransaction CrearTransaccion()
+        {
+            var dbContextTransaction = _context.Database.BeginTransaction();
+            return dbContextTransaction;
+
+        }
+        //Ignorar x mientras ;P
+        public void CreateProcedimiento(Procedimiento procedimiento)
+        {
+
+            if (procedimiento == null)
+            {
+                throw new ArgumentNullException(nameof(procedimiento));
+            }
+            _context.Procedimientos.Add(procedimiento);
+        }
+
+
+
+
+
+
+        public void UpdateBien(BienPatrimonial bien)
+        {
+            _context.Update(bien);
+        }
+
+
+
+
 
         public void CreateInventario(int bienPatrimonialId, int areaId, int anexoTipoId,
             int estadoCondicionId, int estadoBienId, Inventario inventario)
@@ -90,8 +122,8 @@ namespace SICPMonolithic.Repository
             }
             var bienPatrimonialString = _context.BienesPatrimoniales.Where(p => p.Id == bienPatrimonialId)
                 .Select(x => x.Denominacion).Single();
-            var categoriaString = _context.BienesPatrimoniales.Where(p => p.Id == bienPatrimonialId)
-               .Select(x => x.Categoria).Single();
+            //var categoriaString = _context.BienesPatrimoniales.Where(p => p.Id == bienPatrimonialId)
+            //   .Select(x => x.Categoria).Single();
             var procedimientoString = _context.Procedimientos.Where(p => p.Id == procedimientoId)
                 .Select(x => x.NombreReferencial).Single();           
             //var tipoProcedimientoString = _context.Procedimientos.Where(p => p.Id == procedimientoId)
@@ -100,7 +132,7 @@ namespace SICPMonolithic.Repository
            //.Select(x => x.CausalString).Single();
             procedimientoBien.BienPatrimonialId = bienPatrimonialId;
             procedimientoBien.BienPatrimonialString = bienPatrimonialString;
-            procedimientoBien.CategoriaString = categoriaString;
+            //procedimientoBien.CategoriaString = categoriaString;
             procedimientoBien.ProcedimientoId = procedimientoId;
             procedimientoBien.ProcedimientoString = procedimientoString;
             //procedimientoBien.ProcedimientoTipoString = tipoProcedimientoString;
@@ -114,7 +146,12 @@ namespace SICPMonolithic.Repository
        
         public IEnumerable<BienPatrimonial> GetAllBienes()
         {
-            return _context.BienesPatrimoniales.ToList();
+            //return _context.BienesPatrimoniales.ToList();
+            var lista = _context.BienesPatrimoniales
+          .Include(a => a.Categoria)
+          .Include(a => a.Procedimiento)
+          .ToList();
+            return lista;
         }
 
       
@@ -136,7 +173,13 @@ namespace SICPMonolithic.Repository
 
         public BienPatrimonial GetBienById(int id)
         {
-            return _context.BienesPatrimoniales.FirstOrDefault(p => p.Id == id);
+            //return _context.BienesPatrimoniales.FirstOrDefault(p => p.Id == id);
+            var item =  _context.BienesPatrimoniales
+              .Include(p => p.Categoria)
+                   .Include(a => a.Procedimiento)
+              .FirstOrDefault(p => p.Id == id);
+            return item;
+
         }
 
         public IEnumerable<ProcedimientoBien> GetBienesByProcedimiento(int procedimientoId)
@@ -150,8 +193,8 @@ namespace SICPMonolithic.Repository
         public IEnumerable<BienPatrimonial> GetBienesForEnumerados(int enumeradoId)
         {
             var retornito = _context.BienesPatrimoniales
-                .Where(c => c.EnumeradoId == enumeradoId)
-                .OrderBy(c => c.Enumerado.Valor);
+                .Where(c => c.CategoriaId == enumeradoId)
+                .OrderBy(c => c.Categoria.Valor);
             return retornito;
         }
 

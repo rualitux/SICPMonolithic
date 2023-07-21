@@ -13,8 +13,8 @@
         public Enumerado? ProcedimientoTipo { get; set; }
         //public string? CausalString { get; set;}
         public int? CausalId { get; set; }
-        public Enumerado? Causal { get; set; }        
-        public ICollection<ProcedimientoBien> ProcedimientoBiens { get; set; } = new List<ProcedimientoBien>();
+        public Enumerado? Causal { get; set; }
+        public ICollection<BienPatrimonial> Bienes { get; set; } = new List<BienPatrimonial>();
 
 
     }

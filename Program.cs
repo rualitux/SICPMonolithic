@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using SICPMonolithic.Data;
 using SICPMonolithic.Interfaces;
 using SICPMonolithic.Repository;
@@ -7,7 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseInMemoryDatabase("InMem"));
+{
+    opt.UseInMemoryDatabase("InMem");
+    opt.ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning));
+});
+    
 builder.Services.AddScoped<IEnumeradoRepository, EnumeradoRepository>();
 builder.Services.AddScoped<IProcedimientoRepository, ProcedimientoRepository>();
 builder.Services.AddScoped<IAreaRepository, AreaRepository>();

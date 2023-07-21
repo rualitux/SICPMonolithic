@@ -1,4 +1,5 @@
-﻿using SICPMonolithic.Dtos;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using SICPMonolithic.Dtos;
 using SICPMonolithic.Models;
 
 namespace SICPMonolithic.Interfaces
@@ -11,17 +12,22 @@ namespace SICPMonolithic.Interfaces
         IEnumerable<BienPatrimonial> GetBienesForEnumerados (int enumeradoId);
         IEnumerable<BienPatrimonial> GetAllBienes();
         BienPatrimonial GetBienById(int id);
-        void CreateBien(int enumeradoId, BienPatrimonial bien);
+        void CreateBien(BienPatrimonial bien);
+        void UpdateBien (BienPatrimonial bien);
         bool BienExists(int bienPatrimonialId);
+        IDbContextTransaction CrearTransaccion();
+        //Ignorar por mientras ;P
+        void CreateProcedimiento(Procedimiento procedimiento);
+
 
 
         //Procedimientos
-      
+
 
         //Areas
         //IEnumerable<BienPatrimonial> GetBienesForAreas(int areaId);
 
-     
+
 
         //Inventarios
         IEnumerable<Inventario> GetInventariosForArea(int areaId);
@@ -35,13 +41,13 @@ namespace SICPMonolithic.Interfaces
 
 
         //ProcedimientoBien
-        IEnumerable<ProcedimientoBien> GetBienesByProcedimiento(int procedimientoId);
-        IEnumerable<ProcedimientoBien> GetProcedimientosByBien(int bienPatrimonialId);
+        //IEnumerable<ProcedimientoBien> GetBienesByProcedimiento(int procedimientoId);
+        //IEnumerable<ProcedimientoBien> GetProcedimientosByBien(int bienPatrimonialId);
 
 
-        IEnumerable<ProcedimientoBien> GetAllProcedimientoBienes();
-        void CreateProcedimientoBien(int bienPatrimonialId, int procedimientoId, ProcedimientoBien procedimientoBien);
-        bool ProcedimientoBienesExists(int procedimientoBienId);
-        ProcedimientoBien GetProcedimientoBienById(int procedimientoBienId);
+        //IEnumerable<ProcedimientoBien> GetAllProcedimientoBienes();
+        //void CreateProcedimientoBien(int bienPatrimonialId, int procedimientoId, ProcedimientoBien procedimientoBien);
+        //bool ProcedimientoBienesExists(int procedimientoBienId);
+        //ProcedimientoBien GetProcedimientoBienById(int procedimientoBienId);
     }
 }
