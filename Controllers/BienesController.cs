@@ -62,13 +62,16 @@ namespace SICPMonolithic.Controllers
                 _repository.Save();
                 var bien = _mapper.Map<BienPatrimonial>(bienProcedimientoAlta);
                 //No sé cómo mapear esto :/
-                bien.ProcedimientoId = procedimiento.Id;
                 _repository.CreateBien(bien);
                 _repository.Save();
                 transactionTest.Commit();
+                var retorno = _mapper.Map(bien, _mapper.Map<Procedimiento, BienProcedimientoAltaRetorno>(procedimiento));
+                return CreatedAtAction("AltaBienProcedimiento", retorno);
             }
-            return Ok();
         }
+
+  
+
 
 
 

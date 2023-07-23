@@ -25,7 +25,7 @@ namespace SICPMonolithic.Controllers
             return Ok(_mapper.Map<IEnumerable<EnumeradoReadDto>>(enumeradoItems));
         }
         [HttpPost]
-        public ActionResult testInboundConnection()
+        public ActionResult TestInboundConnection()
         {
             Console.WriteLine("POST entrante de Enumerados");
             return Ok("entrante test");

@@ -20,9 +20,9 @@ namespace SICPMonolithic.Data
             {
                 Console.WriteLine("Seedeando data... checa el API sobrino");
                 context.BienesPatrimoniales.AddRange(
-                        new BienPatrimonial() { Denominacion = "Perro", CategoriaId = 1, Color = "Negro", ProcedimientoId = 1 },
-                        new BienPatrimonial() { Denominacion = "Perro2", CategoriaId = 1, Color = "Dorado", ProcedimientoId = 1 },
-                        new BienPatrimonial() { Denominacion = "Botecito 3", CategoriaId = 2, Marca = "Wanxin", ProcedimientoId = 2 }
+                        new BienPatrimonial() { Denominacion = "Perro", CategoriaId = 1, Color = "Negro" },
+                        new BienPatrimonial() { Denominacion = "Perro2", CategoriaId = 1, Color = "Dorado" },
+                        new BienPatrimonial() { Denominacion = "Botecito 3", CategoriaId = 2, Marca = "Wanxin" }
                             );
                 context.Enumerados.AddRange(
                         //1
@@ -72,9 +72,7 @@ namespace SICPMonolithic.Data
                             ProcedimientoTipoId = 10 }
 
                     );
-                context.ProcedimientoBiens.AddRange(
-                    new ProcedimientoBien() { BienPatrimonialId = 1, BienPatrimonialString = "Perro", ProcedimientoId = 1, ProcedimientoString = "Alta Animales" }
-                    );
+          
                 context.Areas.AddRange(
                     new Area() { Nombre = "Sistemas", SedeString = "Central", SedeId = 5, DependenciaString = "GERFFS", DependenciaId = 6, EstadoAreaString = "Activo", EstadoAreaId = 7 },
                 new Area() { Nombre = "Patrimonio", SedeString = "Central", SedeId = 5, DependenciaString = "GERFFS", DependenciaId = 6, EstadoAreaString = "Activo", EstadoAreaId = 7 }
@@ -83,30 +81,23 @@ namespace SICPMonolithic.Data
                    new Inventario()
                    {
                        Cantidad = 1,
-                       BienPatrimonialString = "Perro",
                        BienPatrimonialId = 1,
-                       AreaString = "Sistemas",
                        AreaId = 1,
-                       AnexoTipoString = "A",
                        AnexoTipoId = 8,
-                       EstadoBienString = "Activo",
                        EstadoBienId = 7,
-                       EstadoCondicionString = "Bueno",
-                       EstadoCondicionId = 9
+                       EstadoCondicionId = 9,
+                       ProcedimientoId = 1
                    },
                    new Inventario()
                    {
                        Cantidad = 3,
-                       BienPatrimonialString = "Botecito 3",
                        BienPatrimonialId = 3,
-                       AreaString = "Patrimonio",
                        AreaId = 2,
-                       AnexoTipoString = "A",
                        AnexoTipoId = 8,
-                       EstadoBienString = "Activo",
                        EstadoBienId = 7,
-                       EstadoCondicionString = "Bueno",
-                       EstadoCondicionId = 9
+                       EstadoCondicionId = 9,
+                       ProcedimientoId = 2
+                       
                    }
                     );
                 context.SaveChanges();

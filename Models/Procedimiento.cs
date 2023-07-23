@@ -14,7 +14,7 @@
         //public string? CausalString { get; set;}
         public int? CausalId { get; set; }
         public Enumerado? Causal { get; set; }
-        public ICollection<BienPatrimonial> Bienes { get; set; } = new List<BienPatrimonial>();
+        public ICollection<Inventario> Inventarios { get; set; } = new List<Inventario>();
 
 
     }

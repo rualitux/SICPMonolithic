@@ -18,25 +18,13 @@ namespace SICPMonolithic.Interfaces
         IDbContextTransaction CrearTransaccion();
         //Ignorar por mientras ;P
         void CreateProcedimiento(Procedimiento procedimiento);
-
-
-
-        //Procedimientos
-
-
-        //Areas
-        //IEnumerable<BienPatrimonial> GetBienesForAreas(int areaId);
-
-
-
         //Inventarios
         IEnumerable<Inventario> GetInventariosForArea(int areaId);
 
         IEnumerable<Inventario> GetAllInventarios();
-        void CreateInventario(int bienPatrimonialId, int areaId, int anexoTipoId, int estadoCondicionId, int estadoBienId, Inventario inventario);
+        void CreateInventario(Inventario inventario);
         bool InventarioExists(int inventarioId);
         Inventario GetInventarioById(int inventarioId);
-        public void DarAlta(Alta alta);
 
 
 

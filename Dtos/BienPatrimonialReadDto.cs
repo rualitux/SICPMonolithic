@@ -12,8 +12,8 @@
         public string? Observacion { get; set; }
         public int? CategoriaId { get; set; }
         public string? CategoriaString { get; set; }
-        public int? ProcedimientoId { get; set; }
-        public string? ProcedimientoString { get; set; }
+        //public int? ProcedimientoId { get; set; }
+        //public string? ProcedimientoString { get; set; }
 
     }
 }

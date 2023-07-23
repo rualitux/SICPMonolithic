@@ -12,8 +12,9 @@ namespace SICPMonolithic.Profiles
             CreateMap<BienPatrimonial, BienPatrimonialReadDto > ()
                 .ForMember(d => d.CategoriaString,
                     opt => opt.MapFrom(fuente => fuente.Categoria.Valor))
-                .ForMember(d => d.ProcedimientoString,
-                    opt => opt.MapFrom(fuente => fuente.Procedimiento.NombreReferencial));           
+                //.ForMember(d => d.ProcedimientoString,
+                //    opt => opt.MapFrom(fuente => fuente.Procedimiento.NombreReferencial))
+                ;           
             CreateMap<BienPatrimonialCreateDto, BienPatrimonial>();           
             CreateMap<Procedimiento, ProcedimientoReadDto>()
                 .ForMember(d => d.ProcedimientoTipoString, 
@@ -29,10 +30,25 @@ namespace SICPMonolithic.Profiles
                 .ForMember(d => d.EstadoAreaString,
                     opt => opt.MapFrom(fuente => fuente.EstadoArea.Valor));                
             CreateMap<AreaCreateDto, Area>();
-            CreateMap<Inventario, InventarioReadDto>();
+            CreateMap<Inventario, InventarioReadDto>()
+                 .ForMember(d => d.BienPatrimonialString,
+                    opt => opt.MapFrom(fuente => fuente.BienPatrimonial.Denominacion))
+                .ForMember(d => d.AreaString,
+                    opt => opt.MapFrom(fuente => fuente.Area.Nombre))
+                .ForMember(d => d.AnexoTipoString,
+                    opt => opt.MapFrom(fuente => fuente.AnexoTipo.Valor))
+                .ForMember(d => d.EstadoBienString,
+                    opt => opt.MapFrom(fuente => fuente.EstadoBien.Valor))
+                .ForMember(d => d.EstadoCondicionString,
+                    opt => opt.MapFrom(fuente => fuente.EstadoCondicion.Valor))
+                 .ForMember(d => d.EstadoCondicionString,
+                    opt => opt.MapFrom(fuente => fuente.EstadoCondicion.Valor))
+                 .ForMember(d => d.ProcedimientoString,
+                    opt => opt.MapFrom(fuente => fuente.Procedimiento.NombreReferencial))
+                 ;
             CreateMap<InventarioCreateDto, Inventario>();
-            CreateMap<ProcedimientoBien, ProcedimientoBienReadDto>();
-            CreateMap<ProcedimientoBienCreateDto, ProcedimientoBien>();
+            CreateMap<ProcedimientoInventario, ProcedimientoBienReadDto>();
+            CreateMap<ProcedimientoBienCreateDto, ProcedimientoInventario>();
             //SUPERTEST
             CreateMap<BienProcedimientoAlta, Procedimiento>()         
                .ForMember(d => d.NombreReferencial,
@@ -67,6 +83,19 @@ namespace SICPMonolithic.Profiles
                 //.ForMember(d => d.ProcedimientoId,
                 //  opt => opt.MapFrom(fuente => fuente.ProcedimientoId))
                 ;
+            CreateMap<BienPatrimonial, BienProcedimientoAltaRetorno>()
+                .ForMember(d => d.BienId,
+                  opt => opt.MapFrom(fuente => fuente.Id))
+                .ForMember(d => d.BienString,
+                  opt => opt.MapFrom(fuente => fuente.Denominacion));
+            
+            CreateMap<Procedimiento, BienProcedimientoAltaRetorno>()
+                 .ForMember(d => d.ProcedimientoId,
+                  opt => opt.MapFrom(fuente => fuente.Id))
+                 .ForMember(d => d.ProcedimientoString,
+                  opt => opt.MapFrom(fuente => fuente.NombreReferencial));
+
+
         }
     }
 }

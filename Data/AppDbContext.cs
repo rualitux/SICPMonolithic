@@ -14,7 +14,7 @@ namespace SICPMonolithic.Data
         public DbSet<Procedimiento> Procedimientos { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<Inventario> Inventarios { get; set; }
-        public DbSet<ProcedimientoBien> ProcedimientoBiens { get; set; }
+        public DbSet<ProcedimientoInventario> ProcedimientoBiens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,11 +28,7 @@ namespace SICPMonolithic.Data
                 .HasOne(p => p.Categoria)
                 .WithMany(p => p.BienesPatrimoniales)
                 .HasForeignKey(p => p.CategoriaId);
-            modelBuilder.Entity<BienPatrimonial>()
-               .HasOne(r => r.Procedimiento)
-               .WithMany(r => r.Bienes)
-               .HasForeignKey(r => r.ProcedimientoId)
-               .OnDelete(DeleteBehavior.ClientSetNull);
+           
 
 
             //Procedimiento
@@ -84,6 +80,12 @@ namespace SICPMonolithic.Data
               .HasOne(r => r.EstadoBien)
               .WithMany(r => r.EstadoBiens)
               .HasForeignKey(r => r.EstadoBienId)
+              .OnDelete(DeleteBehavior.Restrict);
+          
+            modelBuilder.Entity<Inventario>()
+              .HasOne(r => r.Procedimiento)
+              .WithMany(r => r.Inventarios)
+              .HasForeignKey(r => r.ProcedimientoId)
               .OnDelete(DeleteBehavior.Restrict);
         }
     }
