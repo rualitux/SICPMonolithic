@@ -12,6 +12,6 @@ namespace SICPMonolithic.Dtos
         public int? ProcedimientoTipoId { get; set; }
         public int? CausalId { get; set; }
         public int? CantidadBienes { get; set; }
-        public List<BienPatrimonialCreateDto>? bienPatrimonialCreateDtos { get; set; }
+        public List<BienPatrimonialCreateDto>? BienPatrimonialCreateDtos { get; set; }
     }
 }

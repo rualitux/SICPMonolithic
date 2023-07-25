@@ -95,6 +95,117 @@ namespace SICPMonolithic.Profiles
                  .ForMember(d => d.ProcedimientoString,
                   opt => opt.MapFrom(fuente => fuente.NombreReferencial));
 
+            //Ajuste
+            CreateMap<Ajuste, AjusteReadDto>()
+                .ForMember(d => d.AjusteTipoString,
+                 opt => opt.MapFrom(fuente => fuente.AjusteTipo.Valor));
+            CreateMap<AjusteCreateDto, Ajuste>();
+            CreateMap<AjusteDetalle, AjusteDetalleReadDto>()
+                 .ForMember(d => d.AjusteString,
+                 opt => opt.MapFrom(fuente => fuente.Ajuste.Justificacion))
+                 .ForMember(d => d.AreaDestinoString,
+                 opt => opt.MapFrom(fuente => fuente.AreaDestino.Nombre))
+                 .ForMember(d => d.AreaOrigenString,
+                 opt => opt.MapFrom(fuente => fuente.AreaOrigen.Nombre))
+                 .ForMember(d => d.InventarioString,
+                 opt => opt.MapFrom(fuente => fuente.Inventario.BienPatrimonial.Denominacion));
+            CreateMap<AjusteDetalleCreateDto, AjusteDetalle>();
+            CreateMap<Ajuste, AjustoExtendidoDto>()
+               .ForMember(d => d.AjusteString,
+                  opt => opt.MapFrom(fuente => fuente.Justificacion))
+                .ForMember(d => d.AjusteTipoString,
+                  opt => opt.MapFrom(fuente => fuente.AjusteTipo.Valor));
+            CreateMap<AjusteDetalle, AjustoExtendidoDto>()
+                .ForMember(d => d.AreaDestinoString,
+                   opt => opt.MapFrom(fuente => fuente.AreaDestino.Nombre))
+                  .ForMember(d => d.AreaOrigenString,
+                   opt => opt.MapFrom(fuente => fuente.AreaOrigen.Nombre))
+                  .ForMember(d => d.InventarioString,
+                   opt => opt.MapFrom(fuente => fuente.Inventario.BienPatrimonial.Denominacion))
+                  .ForMember(d => d.AjusteString,
+                   opt => opt.MapFrom(fuente => fuente.Ajuste.Justificacion))
+                   .ForMember(d => d.AjusteTipoId,
+                   opt => opt.MapFrom(fuente => fuente.Ajuste.AjusteTipoId))
+                  .ForMember(d => d.AjusteTipoString,
+                   opt => opt.MapFrom(fuente => fuente.Ajuste.AjusteTipo.Valor))
+                  
+                  ;               
+
+
+
+            CreateMap<AjusteMovimientoDto, Ajuste>()
+               .ForMember(d => d.Justificacion,
+                   opt => opt.MapFrom(fuente => fuente.Justificacion))
+               .ForMember(d => d.FechaRegistro,
+                   opt => opt.MapFrom(fuente => fuente.FechaRegistro))
+               .ForMember(d => d.AjusteTipoId,
+                   opt => opt.MapFrom(fuente => fuente.AjusteTipoId));
+            CreateMap<AjusteMovimientoDto, AjusteDetalle>()
+             .ForMember(d => d.CantidadAfectada,
+                 opt => opt.MapFrom(fuente => fuente.CantidadAfectada))
+             .ForMember(d => d.InventarioId,
+                 opt => opt.MapFrom(fuente => fuente.InventarioId))
+             .ForMember(d => d.AreaDestinoId,
+                 opt => opt.MapFrom(fuente => fuente.AreaDestinoId))
+               .ForMember(d => d.AreaOrigenId,
+                 opt => opt.MapFrom(fuente => fuente.AreaOrigenId))
+                 .ForMember(d => d.AjusteId,
+                 opt => opt.MapFrom(fuente => fuente.AjusteId));
+
+            //SUPERBAJA
+            CreateMap<AjusteBajaDto, Ajuste>()
+                   .ForMember(d => d.Justificacion,
+                   opt => opt.MapFrom(fuente => fuente.Justificacion))
+               .ForMember(d => d.FechaRegistro,
+                   opt => opt.MapFrom(fuente => fuente.FechaRegistro))
+               //.ForMember(d => d.AjusteTipoId,
+               //    opt => opt.MapFrom(fuente => fuente.AjusteTipoId))
+               ;
+            CreateMap<AjusteBajaDto, AjusteDetalle>()
+                  .ForMember(d => d.CantidadAfectada,
+                  opt => opt.MapFrom(fuente => fuente.CantidadAfectada))
+              .ForMember(d => d.AjusteId,
+                  opt => opt.MapFrom(fuente => fuente.FechaRegistro))
+              .ForMember(d => d.AjusteId,
+                  opt => opt.MapFrom(fuente => fuente.AjusteId))
+              //.ForMember(d => d.AreaDestinoId,
+              //    opt => opt.MapFrom(fuente => fuente.AreaDestinoId))
+              //.ForMember(d => d.AreaOrigenId,
+              //    opt => opt.MapFrom(fuente => fuente.AreaOrigenId))
+              ;
+            CreateMap<AjusteBajaDto, Procedimiento>()
+                 .ForMember(d => d.NombreReferencial,
+                 opt => opt.MapFrom(fuente => fuente.NombreReferencial))
+             .ForMember(d => d.NumeroDocumento,
+                 opt => opt.MapFrom(fuente => fuente.NumeroDocumento))
+             .ForMember(d => d.NumeroGuia,
+                 opt => opt.MapFrom(fuente => fuente.NumeroGuia))
+             //.ForMember(d => d.ProcedimientoTipoId,
+             //    opt => opt.MapFrom(fuente => fuente.ProcedimientoTipoId))
+             .ForMember(d => d.CausalId,
+                 opt => opt.MapFrom(fuente => fuente.CausalId))
+             .ForMember(d => d.FechaDocumento,
+                 opt => opt.MapFrom(fuente => fuente.FechaDocumento))
+             .ForMember(d => d.FechaRegistro,
+                 opt => opt.MapFrom(fuente => fuente.FechaRegistro));
+            CreateMap<AjusteBajaDto, Inventario>()
+               .ForMember(d => d.Cantidad,
+               opt => opt.MapFrom(fuente => fuente.CantidadAfectada))
+               .ForMember(d => d.FechaRegistro,
+               opt => opt.MapFrom(fuente => fuente.FechaRegistro))
+               .ForMember(d => d.BienPatrimonialId,
+               opt => opt.MapFrom(fuente => fuente.BienPatrimonialId))
+               .ForMember(d => d.AnexoTipoId,
+               opt => opt.MapFrom(fuente => fuente.AnexoTipoId))
+               .ForMember(d => d.EstadoCondicionId,
+               opt => opt.MapFrom(fuente => fuente.EstadoCondicionId))
+               //.ForMember(d => d.EstadoBienId,
+               //opt => opt.MapFrom(fuente => fuente.EstadoBienId))
+               .ForMember(d => d.AreaId,
+               opt => opt.MapFrom(fuente => fuente.AreaId))
+               //.ForMember(d => d.ProcedimientoId,
+               //opt => opt.MapFrom(fuente => fuente.ProcedimientoId))
+               ;
 
         }
     }

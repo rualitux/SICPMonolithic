@@ -16,38 +16,18 @@ namespace SICPMonolithic.Repository
             _context = context;
         }
 
-
-
         public bool BienExists(int bienPatrimonialId)
         {
             return _context.BienesPatrimoniales.Any(p => p.Id == bienPatrimonialId);
         }
 
 
-
-        //public void CreateBien(int enumeradoId, BienPatrimonial bien)
-        //{
-        //    if (bien == null)
-        //    { 
-        //        throw new ArgumentNullException(nameof(bien));                
-        //    }
-        //    var categoria = _context.Enumerados.Where(p => p.Id == enumeradoId)
-        //        .Select(x=>x.Valor).Single();
-        //    bien.Categoria= categoria;
-        //    bien.EnumeradoId = enumeradoId;   
-
-        //    _context.BienesPatrimoniales.Add(bien);
-        //}
         public void CreateBien(BienPatrimonial bien)
         {
             if (bien == null)
             {
                 throw new ArgumentNullException(nameof(bien));
-            }
-            //var categoria = _context.Enumerados.Where(p => p.Id == enumeradoId)
-            //    .Select(x => x.Valor).Single();           
-            //bien.Categoria = categoria;           
-            //bien.EnumeradoId = enumeradoId;          
+            }          
             _context.BienesPatrimoniales.Add(bien);
         }
 
@@ -69,19 +49,10 @@ namespace SICPMonolithic.Repository
             _context.Procedimientos.Add(procedimiento);
         }
 
-
-
-
-
-
         public void UpdateBien(BienPatrimonial bien)
         {
             _context.Update(bien);
         }
-
-
-
-
 
         public void CreateInventario(Inventario inventario)
         {
@@ -92,12 +63,6 @@ namespace SICPMonolithic.Repository
             _context.Inventarios.Add(inventario);
         }
 
-  
-       
-
-        
-
-       
         public IEnumerable<BienPatrimonial> GetAllBienes()
         {
             //return _context.BienesPatrimoniales.ToList();
@@ -106,8 +71,6 @@ namespace SICPMonolithic.Repository
           .ToList();
             return lista;
         }
-
-      
 
         public IEnumerable<Inventario> GetAllInventarios()
         {
@@ -122,6 +85,11 @@ namespace SICPMonolithic.Repository
              return lista;
 
         }
+        public void UpdateInventario(Inventario inventario)
+        {       
+            _context.Update(inventario);
+        }
+
 
         public IEnumerable<ProcedimientoInventario> GetAllProcedimientoBienes()
         {
@@ -172,6 +140,11 @@ namespace SICPMonolithic.Repository
                 .FirstOrDefault(p => p.Id == inventarioId);
             return item;
         }
+        public bool InventarioExists(int inventarioId)
+        {
+            return _context.Inventarios.Any(p => p.Id == inventarioId);
+
+        }
 
         public IEnumerable<Inventario> GetInventariosForArea(int areaId)
         {
@@ -182,6 +155,7 @@ namespace SICPMonolithic.Repository
 
         }
 
+
         public ProcedimientoInventario GetProcedimientoBienById(int procedimientoBienId)
         {
             return _context.ProcedimientoBiens.FirstOrDefault(p => p.Id == procedimientoBienId);
@@ -191,11 +165,7 @@ namespace SICPMonolithic.Repository
 
      
 
-        public bool InventarioExists(int inventarioId)
-        {
-            return _context.Inventarios.Any(p => p.Id == inventarioId);
-
-        }
+      
 
         public bool ProcedimientoBienesExists(int procedimientoBienId)
         {
@@ -209,7 +179,115 @@ namespace SICPMonolithic.Repository
 
             return _context.SaveChanges() >= 0;
         }
-     
-    
+
+        public IEnumerable<Ajuste> GetAllAjustes()
+        {
+            var lista = _context.Ajustes
+           .Include(a => a.AjusteTipo)          
+           .ToList();
+            return lista;
+        }
+
+        public Ajuste GetAjusteById(int ajusteId)
+        {
+            var item = _context.Ajustes
+            .Include(p => p.AjusteTipo)                         
+            .FirstOrDefault(p => p.Id == ajusteId);
+            return item;
+        }
+
+        public void CreateAjuste(Ajuste ajuste)
+        {
+            if (ajuste == null)
+            {
+                throw new ArgumentNullException(nameof(ajuste));
+            }
+            _context.Ajustes.Add(ajuste);
+        }
+
+        public void UpdateAjuste(Ajuste ajuste)
+        {
+                _context.Update(ajuste);            
+        }
+
+        public bool AjusteExists(int ajusteId)
+        {
+            return _context.Ajustes.Any(p => p.Id == ajusteId);
+        }
+
+        //AjusteDetalles
+
+
+        public IEnumerable<AjusteDetalle> GetAllAjusteDetalles()
+        {
+            var lista = _context.AjusteDetalles
+                       .Include(a => a.Ajuste)
+                       .Include(a => a.Ajuste.AjusteTipo)
+                       .Include(a => a.AreaDestino)
+                       .Include(a => a.AreaOrigen)
+                       .Include(a => a.Inventario.BienPatrimonial)
+                       .ToList();
+            return lista;
+        }
+
+        //public IEnumerable<AjustoExtendidoDto> GetAllAjusteExtendidos()
+        //{
+        //    var lista = _context.AjusteDetalles
+        //               .Include(a => a.Ajuste)
+        //               .Include(a => a.AreaDestino)
+        //               .Include(a => a.AreaOrigen)
+        //               .Include(a => a.Inventario.BienPatrimonial)
+        //               .ToList();
+        //    return lista;
+        //}
+
+        public AjusteDetalle GetAjusteDetalleById(int ajusteDetalleId)
+        {
+            var item = _context.AjusteDetalles
+                       .Include(a => a.Ajuste)
+                       .Include(a => a.AreaDestino)
+                       .Include(a => a.AreaOrigen)
+                       .Include(a => a.Inventario)
+                       .FirstOrDefault(p => p.Id == ajusteDetalleId);
+            return item;
+
+        }
+
+        public void CreateAjusteDetalle(AjusteDetalle ajusteDetalle)
+        {
+            if (ajusteDetalle == null)
+            {
+                throw new ArgumentNullException(nameof(ajusteDetalle));
+            }
+            _context.AjusteDetalles.Add(ajusteDetalle);
+        }
+
+        public void UpdateAjusteDetalle(AjusteDetalle ajusteDetalle)
+        {
+            _context.Update(ajusteDetalle);
+        }
+
+        public Ajuste AjusteNuevoInventario(Inventario inventario)
+        {
+            var ajuste = new Ajuste();
+            ajuste.AjusteTipoId = 25;
+            ajuste.Justificacion = $"Alta de {inventario.BienPatrimonial.Denominacion}";
+            ajuste.FechaRegistro = DateTime.Now;
+            return ajuste;
+        }
+        public AjusteDetalle AjusteDetalleNuevoInventario(Ajuste ajuste, Inventario inventario)
+        {
+            var ajusteDetalle = new AjusteDetalle();
+            ajusteDetalle.AjusteId = ajuste.Id;
+            ajusteDetalle.InventarioId = inventario.Id;
+            ajusteDetalle.CantidadAfectada = inventario.Cantidad;
+            ajusteDetalle.AreaDestinoId = inventario.AreaId;
+            return ajusteDetalle;
+        }
+
+
+
+
+
     }
 }

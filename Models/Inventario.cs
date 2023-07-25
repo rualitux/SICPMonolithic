@@ -20,5 +20,7 @@ namespace SICPMonolithic.Models
         public Area? Area { get; set; }
         public int? ProcedimientoId { get; set; }
         public Procedimiento? Procedimiento { get; set; }
+        public ICollection<AjusteDetalle>? AjusteDetalles { get; set; } = new List<AjusteDetalle>();
+
     }
 }

@@ -51,7 +51,25 @@ namespace SICPMonolithic.Data
                         new Enumerado() { Valor = "Estado Condicion", Padre = 19 },
                         new Enumerado() { Valor = "Enumerado" },
                         new Enumerado() { Valor = "Atalaya", Padre =14},
-                        new Enumerado() { Valor = "GOREU", Padre = 15 }
+                        new Enumerado() { Valor = "GOREU", Padre = 15 },
+                        //22
+                        new Enumerado() { Valor = "Ajuste", Padre = 19 },
+                        new Enumerado() { Valor = "Movimiento", Padre = 22 },
+                        new Enumerado() { Valor = "Incremento", Padre = 22 },
+                        new Enumerado() { Valor = "Alta de Inventario", Padre = 22 },
+                        new Enumerado() { Valor = "Decremento", Padre = 22 },
+                        new Enumerado() { Valor = "Baja", Padre = 12 }, //27
+                        new Enumerado() { Valor = "Baja de Inventario", Padre = 22 },
+                        new Enumerado() { Valor = "Robo", Padre = 13 },
+                        new Enumerado() { Valor = "Inactivo", Padre = 16 }
+
+
+
+
+
+
+
+
 
 
 
@@ -77,6 +95,11 @@ namespace SICPMonolithic.Data
                     new Area() { Nombre = "Sistemas", SedeString = "Central", SedeId = 5, DependenciaString = "GERFFS", DependenciaId = 6, EstadoAreaString = "Activo", EstadoAreaId = 7 },
                 new Area() { Nombre = "Patrimonio", SedeString = "Central", SedeId = 5, DependenciaString = "GERFFS", DependenciaId = 6, EstadoAreaString = "Activo", EstadoAreaId = 7 }
                     );
+
+                context.Ajustes.AddRange(
+                   new Ajuste() { Justificacion = "Señorita Violeta necesita un perrito", AjusteTipoId = 23 },
+               new Ajuste() {Justificacion = "Necesito un barquito", AjusteTipoId = 25 }
+                   );
                 context.Inventarios.AddRange(
                    new Inventario()
                    {

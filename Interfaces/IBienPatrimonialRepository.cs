@@ -24,18 +24,33 @@ namespace SICPMonolithic.Interfaces
         IEnumerable<Inventario> GetAllInventarios();
         void CreateInventario(Inventario inventario);
         bool InventarioExists(int inventarioId);
+        void UpdateInventario(Inventario inventario);
+
         Inventario GetInventarioById(int inventarioId);
 
+        //Ajuste de Inventario
+        IEnumerable<Ajuste> GetAllAjustes();
+        Ajuste GetAjusteById(int ajusteId);
+        void CreateAjuste(Ajuste ajuste);
+        void UpdateAjuste(Ajuste ajuste);
+        bool AjusteExists(int ajusteId);
+
+        //AjusteDetalles
+        IEnumerable<AjusteDetalle> GetAllAjusteDetalles();
+        AjusteDetalle GetAjusteDetalleById(int ajusteDetalleId);
+        void CreateAjusteDetalle(AjusteDetalle ajusteDetalle);
+        void UpdateAjusteDetalle(AjusteDetalle ajusteDetalle);
+
+        //Extra
+        Ajuste AjusteNuevoInventario(Inventario inventario);
+        AjusteDetalle AjusteDetalleNuevoInventario(Ajuste ajuste, Inventario inventario);
 
 
-        //ProcedimientoBien
-        //IEnumerable<ProcedimientoBien> GetBienesByProcedimiento(int procedimientoId);
-        //IEnumerable<ProcedimientoBien> GetProcedimientosByBien(int bienPatrimonialId);
 
 
-        //IEnumerable<ProcedimientoBien> GetAllProcedimientoBienes();
-        //void CreateProcedimientoBien(int bienPatrimonialId, int procedimientoId, ProcedimientoBien procedimientoBien);
-        //bool ProcedimientoBienesExists(int procedimientoBienId);
-        //ProcedimientoBien GetProcedimientoBienById(int procedimientoBienId);
+
+
+
+
     }
 }

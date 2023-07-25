@@ -23,6 +23,9 @@ namespace SICPMonolithic.Models
         public ICollection<Inventario> EstadoCondicions { get; set; } = new List<Inventario>();
 
         public ICollection<Inventario> EstadoBiens { get; set; } = new List<Inventario>();
+        //NavP Ajuste
+        public ICollection<Ajuste> AjusteTipos { get; set; } = new List<Ajuste>();
+
 
 
     }
